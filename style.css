@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+}
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+.currentWeather {
+  background-color: red;
+  grid-row: 1/3;
+  display: grid;
+}
+
+#locationSearchForm {
+  grid-column: 2/-1;
+  display: grid;
+}
+
+.nextDayWeather {
+  background-color: cyan;
+}
+
+.nextDayWeather2 {
+  background-color: magenta;
+}
+
+.hourlyWeather {
+  background-color: yellow;
+  grid-column: 1/-1;
+  display: grid;
+}
