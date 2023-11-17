@@ -14,6 +14,7 @@ function filterForecastData(forecastData) {
   weather.location = {};
   weather.location.name = locationData.name;
   weather.location.region = locationData.region;
+  weather.location.country = locationData.country;
   weather.location.localtime_epoch = locationData.localtime_epoch;
   weather.location.localtime = locationData.localtime;
   weather.location.tz_id = locationData.tz_id;
@@ -22,7 +23,6 @@ function filterForecastData(forecastData) {
   const currentWeatherData = forecastData.current;
   const currentHourWeatherData =
     forecastData.forecast.forecastday[0].hour[getCurrentHour(forecastData)];
-  console.log(getCurrentHour(forecastData));
   weather.current = {};
   weather.current.text = currentWeatherData.condition.text;
   weather.current.icon = currentWeatherData.condition.icon;

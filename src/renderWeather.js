@@ -1,12 +1,14 @@
 import { addDays, fromUnixTime } from "date-fns";
 import { format, utcToZonedTime } from "date-fns-tz";
 import { renderUnits } from "./units";
+import { currentSlide } from "./hourlySlides";
 
 function renderWeather(weather) {
   renderCurrentWeather(weather);
   renderNextDayWeather(weather);
   renderNextDayWeather2(weather);
   renderHourlyWeather(weather);
+  currentSlide(1);
   renderUnits();
 }
 
@@ -46,7 +48,16 @@ function renderCurrentWeather(weather) {
   );
 
   conditionTextDiv.textContent = weather.current.text;
-  locationNameDiv.textContent = weather.location.name;
+  if (
+    weather.location.name !== weather.location.region &&
+    weather.location.region
+  ) {
+    locationNameDiv.textContent =
+      weather.location.name + ", " + weather.location.region;
+  } else {
+    locationNameDiv.textContent =
+      weather.location.name + ", " + weather.location.country;
+  }
   localDateDiv.textContent = format(
     utcToZonedTime(
       fromUnixTime(weather.location.localtime_epoch),
@@ -143,11 +154,17 @@ function renderNextDayWeather2(weather) {
 }
 
 function renderHourlyWeather(weather) {
-  const hourlySlides = document.getElementsByClassName("slide");
+  const hourlySlides = [...document.getElementsByClassName("slide")];
   const slide1 = hourlySlides[0];
   const slide2 = hourlySlides[1];
   const slide3 = hourlySlides[2];
 
+  // Remove all children of slides
+  hourlySlides.forEach((slide) => {
+    removeAllChildNodes(slide);
+  });
+
+  // Render each slide with 8 hours
   for (let i = 0; i < 8; i++) {
     renderOneHourWeather(weather, slide1, i);
   }
@@ -192,5 +209,11 @@ function renderOneHourWeather(weather, slide, index) {
 
   slide.appendChild(hourWeatherDiv);
 }
+
+const removeAllChildNodes = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+};
 
 export { renderWeather };

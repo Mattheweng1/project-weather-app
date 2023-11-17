@@ -5,17 +5,31 @@ import { renderWeather } from "./renderWeather";
 import { currentSlide, plusSlide } from "./hourlySlides";
 import { changeUnits } from "./units";
 
-let weatherPromise = fetchData(getForecastUrl("tokyo")).then(
-  filterForecastData
-);
+// Initial weather data
+// Also store current forecastUrl & weather data for reuse
+let forecastUrl =
+  "https://api.weatherapi.com/v1/forecast.json?key=290bb3875a474307b09152332230911&q=Nowhere&days=3&aqi=no&alerts=no";
+let weatherPromise = fetchData(forecastUrl).then(filterForecastData);
 
-fetchData(getForecastUrl("tokyo")).then(console.log);
-
+// Initial weather render
+weatherPromise.then(renderWeather);
 weatherPromise.then(console.log);
 
-weatherPromise.then(renderWeather);
+// Fetch & render weather data on submit
+const locationSearchForm = document.getElementById("locationSearchForm");
+locationSearchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  // Prevent fetching & rerendering the same data
+  if (forecastUrl !== getForecastUrl()) {
+    forecastUrl = getForecastUrl();
+    weatherPromise = fetchData(forecastUrl).then(filterForecastData);
+    weatherPromise.then(renderWeather);
 
-weatherPromise.then((weather) => {
+    fetchData(getSearchUrl()).then(console.log);
+  }
+});
+
+/* weatherPromise.then((weather) => {
   console.log(
     format(
       utcToZonedTime(
@@ -25,16 +39,18 @@ weatherPromise.then((weather) => {
       "h aaa"
     )
   );
-});
+}); */
 
 /* fetchData(getSearchUrl()).then(console.log); */
 
-function getForecastUrl(locationInput) {
-  return `https://api.weatherapi.com/v1/forecast.json?key=290bb3875a474307b09152332230911&q=${locationInput}&days=3&aqi=no&alerts=no`;
+function getForecastUrl() {
+  const searchInput = document.querySelector(".searchBar input");
+  return `https://api.weatherapi.com/v1/forecast.json?key=290bb3875a474307b09152332230911&q=${searchInput.value}&days=3&aqi=no&alerts=no`;
 }
 
 function getSearchUrl() {
-  return "https://api.weatherapi.com/v1/search.json?key=290bb3875a474307b09152332230911&q=Hokkaido";
+  const searchInput = document.querySelector(".searchBar input");
+  return `https://api.weatherapi.com/v1/search.json?key=290bb3875a474307b09152332230911&q=${searchInput.value}`;
 }
 
 // Change hourlySlides onclick
