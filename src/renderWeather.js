@@ -69,7 +69,7 @@ function renderCurrentWeather(weather) {
   humidityDiv.textContent = weather.current.humidity + " %";
   chanceOfRainDiv.textContent = weather.current.chance_of_rain + " %";
   metricWindSpeedSpan.textContent = weather.current.wind_kph + " kph";
-  imperialWindSpeedSpan.textContent = weather.current.wind_kph + " mph";
+  imperialWindSpeedSpan.textContent = weather.current.wind_mph + " mph";
 }
 
 function renderNextDayWeather(weather) {
