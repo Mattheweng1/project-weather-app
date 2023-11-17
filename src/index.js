@@ -1,7 +1,7 @@
 import { fromUnixTime } from "date-fns";
 import { format, utcToZonedTime } from "date-fns-tz";
 import { fetchData, filterForecastData } from "./api";
-import { renderWeather } from "./render";
+import { renderWeather } from "./renderWeather";
 import { currentSlide, plusSlide } from "./hourlySlides";
 import { changeUnits } from "./units";
 
