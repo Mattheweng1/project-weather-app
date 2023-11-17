@@ -1,15 +1,9 @@
 import { fromUnixTime } from "date-fns";
 import { format, utcToZonedTime } from "date-fns-tz";
 import { fetchData, filterForecastData } from "./api";
-import {
-  renderCurrentWeather,
-  renderHourlyWeather,
-  renderNextDayWeather,
-  renderNextDayWeather2,
-} from "./render";
+import { renderWeather } from "./render";
 import { currentSlide, plusSlide } from "./hourlySlides";
-
-/* renderCurrentWeather(weatherData); */
+import { changeUnits } from "./units";
 
 let weatherPromise = fetchData(getForecastUrl("tokyo")).then(
   filterForecastData
@@ -19,10 +13,7 @@ fetchData(getForecastUrl("tokyo")).then(console.log);
 
 weatherPromise.then(console.log);
 
-weatherPromise.then(renderCurrentWeather);
-weatherPromise.then(renderNextDayWeather);
-weatherPromise.then(renderNextDayWeather2);
-weatherPromise.then(renderHourlyWeather);
+weatherPromise.then(renderWeather);
 
 weatherPromise.then((weather) => {
   console.log(
@@ -46,7 +37,7 @@ function getSearchUrl() {
   return "https://api.weatherapi.com/v1/search.json?key=290bb3875a474307b09152332230911&q=Hokkaido";
 }
 
-// hourlySlides onclick functionality
+// Change hourlySlides onclick
 
 const leftArrow = document.querySelector(".leftArrow");
 const rightArrow = document.querySelector(".rightArrow");
@@ -62,4 +53,16 @@ dots.forEach((dot) => {
   dot.addEventListener("click", () => {
     currentSlide(dots.indexOf(dot) + 1);
   });
+});
+
+// Change units onclick
+
+const unitCSpan = document.querySelector(".changeUnits .unitC");
+const unitFSpan = document.querySelector(".changeUnits .unitF");
+
+unitCSpan.addEventListener("click", () => {
+  changeUnits("metric");
+});
+unitFSpan.addEventListener("click", () => {
+  changeUnits("imperial");
 });
