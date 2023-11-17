@@ -19,11 +19,17 @@
         <div class="localDate">iz a 2sday</div>
         <div class="localTime">4:20</div>
       </div>
-      <div class="temp">69 F</div>
+      <div class="unitContainer temp">
+        <span class="metric">metric</span>
+        <span class="imperial displayNone">imperial</span>
+      </div>
       <img class="conditionIcon" src="" alt="Error loading" />
       <div>
         <div>Feels Like</div>
-        <div class="feelsLike">warm</div>
+        <div class="unitContainer feelsLike">
+          <span class="metric">metric</span>
+          <span class="imperial displayNone">imperial</span>
+        </div>
       </div>
       <div>
         <div>Humidity</div>
@@ -35,7 +41,10 @@
       </div>
       <div>
         <div>Wind Speed</div>
-        <div class="windSpeed">fast</div>
+        <div class="unitContainer windSpeed">
+          <span class="metric">metric</span>
+          <span class="imperial displayNone">imperial</span>
+        </div>
       </div>
     </div>
     <form id="locationSearchForm">
@@ -52,16 +61,28 @@
     <div class="nextDayWeather">
       <div class="dayOfWeek"></div>
       <div class="temps">
-        <div class="tempHigh"></div>
-        <div class="tempLow"></div>
+        <div class="unitContainer tempHigh">
+          <span class="metric">metric</span>
+          <span class="imperial displayNone">imperial</span>
+        </div>
+        <div class="unitContainer tempLow">
+          <span class="metric">metric</span>
+          <span class="imperial displayNone">imperial</span>
+        </div>
       </div>
       <img class="conditionIcon" src="" alt="Error loading" />
     </div>
     <div class="nextDayWeather2">
       <div class="dayOfWeek"></div>
       <div class="temps">
-        <div class="tempHigh"></div>
-        <div class="tempLow"></div>
+        <div class="unitContainer tempHigh">
+          <span class="metric">metric</span>
+          <span class="imperial displayNone">imperial</span>
+        </div>
+        <div class="unitContainer tempLow">
+          <span class="metric">metric</span>
+          <span class="imperial displayNone">imperial</span>
+        </div>
       </div>
       <img class="conditionIcon" src="" alt="Error loading" />
     </div>
