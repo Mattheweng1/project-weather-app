@@ -1,5 +1,3 @@
-import { fromUnixTime } from "date-fns";
-import { format, utcToZonedTime } from "date-fns-tz";
 import { fetchData, filterForecastData } from "./api";
 import { renderWeather } from "./renderWeather";
 import { currentSlide, plusSlide } from "./hourlySlides";
@@ -15,7 +13,7 @@ let weatherPromise = fetchData(forecastUrl).then(filterForecastData);
 weatherPromise.then(renderWeather);
 weatherPromise.then(console.log);
 
-// Fetch & render weather data on submit
+// onsubmit: Fetch & render weather data
 const locationSearchForm = document.getElementById("locationSearchForm");
 locationSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -24,37 +22,15 @@ locationSearchForm.addEventListener("submit", (e) => {
     forecastUrl = getForecastUrl();
     weatherPromise = fetchData(forecastUrl).then(filterForecastData);
     weatherPromise.then(renderWeather);
-
-    fetchData(getSearchUrl()).then(console.log);
   }
 });
-
-/* weatherPromise.then((weather) => {
-  console.log(
-    format(
-      utcToZonedTime(
-        fromUnixTime(weather.location.localtime_epoch),
-        weather.location.tz_id
-      ),
-      "h aaa"
-    )
-  );
-}); */
-
-/* fetchData(getSearchUrl()).then(console.log); */
 
 function getForecastUrl() {
   const searchInput = document.querySelector(".searchBar input");
   return `https://api.weatherapi.com/v1/forecast.json?key=290bb3875a474307b09152332230911&q=${searchInput.value}&days=3&aqi=no&alerts=no`;
 }
 
-function getSearchUrl() {
-  const searchInput = document.querySelector(".searchBar input");
-  return `https://api.weatherapi.com/v1/search.json?key=290bb3875a474307b09152332230911&q=${searchInput.value}`;
-}
-
-// Change hourlySlides onclick
-
+// onclick: Change hourlyWeather slide
 const leftArrow = document.querySelector(".leftArrow");
 const rightArrow = document.querySelector(".rightArrow");
 const dots = [...document.getElementsByClassName("dot")];
@@ -71,8 +47,7 @@ dots.forEach((dot) => {
   });
 });
 
-// Change units onclick
-
+// onclick: Change units
 const unitCSpan = document.querySelector(".changeUnits .unitC");
 const unitFSpan = document.querySelector(".changeUnits .unitF");
 
