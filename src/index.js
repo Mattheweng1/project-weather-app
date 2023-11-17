@@ -7,6 +7,7 @@ import {
   renderNextDayWeather,
   renderNextDayWeather2,
 } from "./render";
+import { currentSlide, plusSlide } from "./hourlySlides";
 
 /* renderCurrentWeather(weatherData); */
 
@@ -44,3 +45,21 @@ function getForecastUrl(locationInput) {
 function getSearchUrl() {
   return "https://api.weatherapi.com/v1/search.json?key=290bb3875a474307b09152332230911&q=Hokkaido";
 }
+
+// hourlySlides onclick functionality
+
+const leftArrow = document.querySelector(".leftArrow");
+const rightArrow = document.querySelector(".rightArrow");
+const dots = [...document.getElementsByClassName("dot")];
+
+leftArrow.addEventListener("click", () => {
+  plusSlide(-1);
+});
+rightArrow.addEventListener("click", () => {
+  plusSlide(1);
+});
+dots.forEach((dot) => {
+  dot.addEventListener("click", () => {
+    currentSlide(dots.indexOf(dot) + 1);
+  });
+});
