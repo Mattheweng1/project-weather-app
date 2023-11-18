@@ -1,4 +1,8 @@
-import { fetchData, filterForecastData, getForecastUrlFromInput } from "./api";
+import {
+  fetchData,
+  filterForecastData,
+  getForecastUrlFromInput,
+} from "./weatherData";
 import { renderWeather } from "./renderWeather";
 import { currentSlide, plusSlide } from "./hourlySlides";
 import { changeUnits } from "./units";
