@@ -7,8 +7,7 @@ import { animateFadeInSlide } from "./animate";
 function renderWeather(weather) {
   if (weather) {
     renderCurrentWeather(weather);
-    renderNextDayWeather(weather);
-    renderNextDayWeather2(weather);
+    renderNextDaysWeather(weather);
     renderHourlyWeather(weather);
     currentSlide(1);
     renderUnits();
@@ -87,74 +86,41 @@ function renderCurrentWeather(weather) {
   imperialWindSpeedSpan.textContent = weather.current.wind_mph + " mph";
 }
 
-function renderNextDayWeather(weather) {
-  const dayOfWeekDiv = document.querySelector(".nextDayWeather .dayOfWeek");
-  const metricTempHighSpan = document.querySelector(
-    ".nextDayWeather .tempHigh .metric"
-  );
-  const imperialTempHighSpan = document.querySelector(
-    ".nextDayWeather .tempHigh .imperial"
-  );
-  const metricTempLowSpan = document.querySelector(
-    ".nextDayWeather .tempLow .metric"
-  );
-  const imperialTempLowSpan = document.querySelector(
-    ".nextDayWeather .tempLow .imperial"
-  );
-  const conditionIconImg = document.querySelector(
-    ".nextDayWeather .conditionIcon"
-  );
+function renderNextDaysWeather(weather) {
+  const nextDaysWeatherDivs = [
+    ...document.querySelectorAll(".nextDaysWeather"),
+  ];
 
-  dayOfWeekDiv.textContent = format(
-    addDays(
-      utcToZonedTime(
-        fromUnixTime(weather.location.localtime_epoch),
-        weather.location.tz_id
+  nextDaysWeatherDivs.forEach((div) => {
+    const divIndex = nextDaysWeatherDivs.indexOf(div);
+
+    const dayOfWeekDiv = div.querySelector(".dayOfWeek");
+    const metricTempHighSpan = div.querySelector(".tempHigh .metric");
+    const imperialTempHighSpan = div.querySelector(".tempHigh .imperial");
+    const metricTempLowSpan = div.querySelector(".tempLow .metric");
+    const imperialTempLowSpan = div.querySelector(".tempLow .imperial");
+    const conditionIconImg = div.querySelector(".conditionIcon");
+
+    dayOfWeekDiv.textContent = format(
+      addDays(
+        utcToZonedTime(
+          fromUnixTime(weather.location.localtime_epoch),
+          weather.location.tz_id
+        ),
+        divIndex + 1
       ),
-      1
-    ),
-    "EEEE"
-  );
-  metricTempHighSpan.textContent = weather.nextDay.maxtemp_c + " °C";
-  imperialTempHighSpan.textContent = weather.nextDay.maxtemp_f + " °F";
-  metricTempLowSpan.textContent = weather.nextDay.mintemp_c + " °C";
-  imperialTempLowSpan.textContent = weather.nextDay.mintemp_f + " °F";
-  conditionIconImg.src = weather.nextDay.icon;
-}
-
-function renderNextDayWeather2(weather) {
-  const dayOfWeekDiv = document.querySelector(".nextDayWeather2 .dayOfWeek");
-  const metricTempHighSpan = document.querySelector(
-    ".nextDayWeather2 .tempHigh .metric"
-  );
-  const imperialTempHighSpan = document.querySelector(
-    ".nextDayWeather2 .tempHigh .imperial"
-  );
-  const metricTempLowSpan = document.querySelector(
-    ".nextDayWeather2 .tempLow .metric"
-  );
-  const imperialTempLowSpan = document.querySelector(
-    ".nextDayWeather2 .tempLow .imperial"
-  );
-  const conditionIconImg = document.querySelector(
-    ".nextDayWeather2 .conditionIcon"
-  );
-
-  dayOfWeekDiv.textContent = format(
-    addDays(
-      utcToZonedTime(
-        fromUnixTime(weather.location.localtime_epoch),
-        weather.location.tz_id
-      ),
-      2
-    ),
-    "EEEE"
-  );
-  metricTempHighSpan.textContent = weather.nextDay2.maxtemp_c + " °C";
-  imperialTempHighSpan.textContent = weather.nextDay2.maxtemp_f + " °F";
-  metricTempLowSpan.textContent = weather.nextDay2.mintemp_c + " °C";
-  imperialTempLowSpan.textContent = weather.nextDay2.mintemp_f + " °F";
-  conditionIconImg.src = weather.nextDay2.icon;
+      "EEEE"
+    );
+    metricTempHighSpan.textContent =
+      weather.nextDays[divIndex].maxtemp_c + " °C";
+    imperialTempHighSpan.textContent =
+      weather.nextDays[divIndex].maxtemp_f + " °F";
+    metricTempLowSpan.textContent =
+      weather.nextDays[divIndex].mintemp_c + " °C";
+    imperialTempLowSpan.textContent =
+      weather.nextDays[divIndex].mintemp_f + " °F";
+    conditionIconImg.src = weather.nextDays[divIndex].icon;
+  });
 }
 
 function renderHourlyWeather(weather) {

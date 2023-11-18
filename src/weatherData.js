@@ -1,5 +1,6 @@
 import { showNoMatchesError } from "./animate";
 
+// Fetch data & show error if no matches
 async function fetchData(url) {
   const response = await fetch(url, {
     mode: "cors",
@@ -24,56 +25,54 @@ function filterForecastData(forecastData) {
     return;
   }
 
-  const weather = {};
-
-  // Location
   const locationData = forecastData.location;
-  weather.location = {};
-  weather.location.name = locationData.name;
-  weather.location.region = locationData.region;
-  weather.location.country = locationData.country;
-  weather.location.localtime_epoch = locationData.localtime_epoch;
-  weather.location.localtime = locationData.localtime;
-  weather.location.tz_id = locationData.tz_id;
-
-  // Current Weather
   const currentWeatherData = forecastData.current;
   const currentHourWeatherData =
     forecastData.forecast.forecastday[0].hour[getCurrentHour(forecastData)];
-  weather.current = {};
-  weather.current.text = currentWeatherData.condition.text;
-  weather.current.icon = currentWeatherData.condition.icon;
-  weather.current.temp_c = currentWeatherData.temp_c;
-  weather.current.temp_f = currentWeatherData.temp_f;
-  weather.current.feelslike_c = currentWeatherData.feelslike_c;
-  weather.current.feelslike_f = currentWeatherData.feelslike_f;
-  weather.current.humidity = currentWeatherData.humidity;
-  weather.current.chance_of_rain = currentHourWeatherData.chance_of_rain;
-  weather.current.wind_kph = currentWeatherData.wind_kph;
-  weather.current.wind_mph = currentWeatherData.wind_mph;
+  const dayPlus1Data = forecastData.forecast.forecastday[1].day;
+  const dayPlus2Data = forecastData.forecast.forecastday[2].day;
 
-  // Tomorrow's Weather
-  const nextDayWeatherData = forecastData.forecast.forecastday[1].day;
-  weather.nextDay = {};
-  weather.nextDay.text = nextDayWeatherData.condition.text;
-  weather.nextDay.icon = nextDayWeatherData.condition.icon;
-  weather.nextDay.maxtemp_c = nextDayWeatherData.maxtemp_c;
-  weather.nextDay.maxtemp_f = nextDayWeatherData.maxtemp_f;
-  weather.nextDay.mintemp_c = nextDayWeatherData.mintemp_c;
-  weather.nextDay.mintemp_f = nextDayWeatherData.mintemp_f;
-
-  // Day after Tomorrow's Weather
-  const nextDayWeather2Data = forecastData.forecast.forecastday[2].day;
-  weather.nextDay2 = {};
-  weather.nextDay2.text = nextDayWeather2Data.condition.text;
-  weather.nextDay2.icon = nextDayWeather2Data.condition.icon;
-  weather.nextDay2.maxtemp_c = nextDayWeather2Data.maxtemp_c;
-  weather.nextDay2.maxtemp_f = nextDayWeather2Data.maxtemp_f;
-  weather.nextDay2.mintemp_c = nextDayWeather2Data.mintemp_c;
-  weather.nextDay2.mintemp_f = nextDayWeather2Data.mintemp_f;
-
-  // Next 24 Hours Weather
-  weather.next24Hours = filterNext24HoursData(getNext24HoursData(forecastData));
+  const weather = {
+    location: {
+      name: locationData.name,
+      region: locationData.region,
+      country: locationData.country,
+      localtime_epoch: locationData.localtime_epoch,
+      localtime: locationData.localtime,
+      tz_id: locationData.tz_id,
+    },
+    current: {
+      text: currentWeatherData.condition.text,
+      icon: currentWeatherData.condition.icon,
+      temp_c: currentWeatherData.temp_c,
+      temp_f: currentWeatherData.temp_f,
+      feelslike_c: currentWeatherData.feelslike_c,
+      feelslike_f: currentWeatherData.feelslike_f,
+      humidity: currentWeatherData.humidity,
+      chance_of_rain: currentHourWeatherData.chance_of_rain,
+      wind_kph: currentWeatherData.wind_kph,
+      wind_mph: currentWeatherData.wind_mph,
+    },
+    nextDays: [
+      {
+        text: dayPlus1Data.condition.text,
+        icon: dayPlus1Data.condition.icon,
+        maxtemp_c: dayPlus1Data.maxtemp_c,
+        maxtemp_f: dayPlus1Data.maxtemp_f,
+        mintemp_c: dayPlus1Data.mintemp_c,
+        mintemp_f: dayPlus1Data.mintemp_f,
+      },
+      {
+        text: dayPlus2Data.condition.text,
+        icon: dayPlus2Data.condition.icon,
+        maxtemp_c: dayPlus2Data.maxtemp_c,
+        maxtemp_f: dayPlus2Data.maxtemp_f,
+        mintemp_c: dayPlus2Data.mintemp_c,
+        mintemp_f: dayPlus2Data.mintemp_f,
+      },
+    ],
+    next24Hours: filterNext24HoursData(getNext24HoursData(forecastData)),
+  };
 
   return weather;
 }
@@ -93,11 +92,12 @@ function getNext24HoursData(forecastData) {
 
 function filterNext24HoursData(next24HoursData) {
   const newNext24HoursData = next24HoursData.map((hourData) => {
-    const newHourData = {};
-    newHourData.time_epoch = hourData.time_epoch;
-    newHourData.temp_c = hourData.temp_c;
-    newHourData.temp_f = hourData.temp_f;
-    newHourData.icon = hourData.condition.icon;
+    const newHourData = {
+      time_epoch: hourData.time_epoch,
+      temp_c: hourData.temp_c,
+      temp_f: hourData.temp_f,
+      icon: hourData.condition.icon,
+    };
     return newHourData;
   });
   return newNext24HoursData;
