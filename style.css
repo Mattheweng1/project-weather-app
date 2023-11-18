@@ -109,10 +109,9 @@ input:focus {
   padding: 8px;
 }
 
-.nextDayWeather,
-.nextDayWeather2 {
+.nextDaysWeather {
   display: grid;
-  justify-content: center;
+  justify-content: start;
   align-content: center;
 }
 
