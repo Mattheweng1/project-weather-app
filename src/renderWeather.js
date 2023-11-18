@@ -2,14 +2,18 @@ import { addDays, fromUnixTime } from "date-fns";
 import { format, utcToZonedTime } from "date-fns-tz";
 import { renderUnits } from "./units";
 import { currentSlide } from "./hourlySlides";
+import { animateFadeInSlide } from "./animate";
 
 function renderWeather(weather) {
-  renderCurrentWeather(weather);
-  renderNextDayWeather(weather);
-  renderNextDayWeather2(weather);
-  renderHourlyWeather(weather);
-  currentSlide(1);
-  renderUnits();
+  if (weather) {
+    renderCurrentWeather(weather);
+    renderNextDayWeather(weather);
+    renderNextDayWeather2(weather);
+    renderHourlyWeather(weather);
+    currentSlide(1);
+    renderUnits();
+    animateFadeInSlide();
+  }
 }
 
 function renderCurrentWeather(weather) {

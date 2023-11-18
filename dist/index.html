@@ -12,93 +12,102 @@
     <title>Weather App</title>
   </head>
   <body>
-    <div class="currentWeather">
-      <div class="conditionText">Cloudy with a chance of meatballs</div>
-      <div class="locationName">Sapporo</div>
-      <div>
-        <div class="localDate">iz a 2sday</div>
-        <div class="localTime">4:20</div>
-      </div>
-      <div class="unitContainer temp">
-        <span class="metric">metric</span>
-        <span class="imperial displayNone">imperial</span>
-      </div>
-      <img class="conditionIcon" src="" alt="Error loading" />
-      <div>
-        <div>Feels Like</div>
-        <div class="unitContainer feelsLike">
+    <div class="content displayNone">
+      <div class="fadeInSlide currentWeather">
+        <div class="conditionText">Cloudy with a chance of meatballs</div>
+        <div class="locationName">Sapporo</div>
+        <div>
+          <div class="localDate">iz a 2sday</div>
+          <div class="localTime">4:20</div>
+        </div>
+        <div class="unitContainer temp">
           <span class="metric">metric</span>
           <span class="imperial displayNone">imperial</span>
         </div>
-      </div>
-      <div>
-        <div>Humidity</div>
-        <div class="humidity">wet</div>
-      </div>
-      <div>
-        <div>Chance of Rain</div>
-        <div class="chanceOfRain">meatballs</div>
-      </div>
-      <div>
-        <div>Wind Speed</div>
-        <div class="unitContainer windSpeed">
-          <span class="metric">metric</span>
-          <span class="imperial displayNone">imperial</span>
+        <img class="conditionIcon" src="" alt="Error loading" />
+        <div>
+          <div>Feels Like</div>
+          <div class="unitContainer feelsLike">
+            <span class="metric">metric</span>
+            <span class="imperial displayNone">imperial</span>
+          </div>
+        </div>
+        <div>
+          <div>Humidity</div>
+          <div class="humidity">wet</div>
+        </div>
+        <div>
+          <div>Chance of Rain</div>
+          <div class="chanceOfRain">meatballs</div>
+        </div>
+        <div>
+          <div>Wind Speed</div>
+          <div class="unitContainer windSpeed">
+            <span class="metric">metric</span>
+            <span class="imperial displayNone">imperial</span>
+          </div>
         </div>
       </div>
-    </div>
-    <form id="locationSearchForm">
-      <div class="changeUnits">
-        <span class="unitC selected">°C</span>
-        /
-        <span class="unitF">°F</span>
-      </div>
-      <div class="searchBar">
-        <input type="text" placeholder="Search location..." />
-        <button type="submit" class="material-symbols-rounded">search</button>
-      </div>
-    </form>
-    <div class="nextDayWeather">
-      <div class="dayOfWeek"></div>
-      <div class="temps">
-        <div class="unitContainer tempHigh">
-          <span class="metric">metric</span>
-          <span class="imperial displayNone">imperial</span>
+      <form id="locationSearchForm" class="fadeIn">
+        <div class="changeUnits">
+          <span class="unitC selected">°C</span>
+          /
+          <span class="unitF">°F</span>
         </div>
-        <div class="unitContainer tempLow">
-          <span class="metric">metric</span>
-          <span class="imperial displayNone">imperial</span>
+        <div class="searchBar">
+          <input type="text" placeholder="Search location..." />
+          <button type="submit" class="material-symbols-rounded">search</button>
         </div>
-      </div>
-      <img class="conditionIcon" src="" alt="Error loading" />
-    </div>
-    <div class="nextDayWeather2">
-      <div class="dayOfWeek"></div>
-      <div class="temps">
-        <div class="unitContainer tempHigh">
-          <span class="metric">metric</span>
-          <span class="imperial displayNone">imperial</span>
+        <div class="fadeInSlide errorMsg displayNone">
+          No matching location found
         </div>
-        <div class="unitContainer tempLow">
-          <span class="metric">metric</span>
-          <span class="imperial displayNone">imperial</span>
+      </form>
+      <div class="fadeInSlide nextDayWeather">
+        <div class="dayOfWeek"></div>
+        <div class="temps">
+          <div class="unitContainer tempHigh">
+            <span class="metric">metric</span>
+            <span class="imperial displayNone">imperial</span>
+          </div>
+          <div class="unitContainer tempLow">
+            <span class="metric">metric</span>
+            <span class="imperial displayNone">imperial</span>
+          </div>
         </div>
+        <img class="conditionIcon" src="" alt="Error loading" />
       </div>
-      <img class="conditionIcon" src="" alt="Error loading" />
-    </div>
-    <div class="hourlyWeather">
-      <div class="header">
-        <div>Hourly</div>
-        <div class="leftArrow material-symbols-rounded">arrow_back_ios_new</div>
-        <div class="dot selected"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="rightArrow material-symbols-rounded">arrow_forward_ios</div>
+      <div class="fadeInSlide nextDayWeather2">
+        <div class="dayOfWeek"></div>
+        <div class="temps">
+          <div class="unitContainer tempHigh">
+            <span class="metric">metric</span>
+            <span class="imperial displayNone">imperial</span>
+          </div>
+          <div class="unitContainer tempLow">
+            <span class="metric">metric</span>
+            <span class="imperial displayNone">imperial</span>
+          </div>
+        </div>
+        <img class="conditionIcon" src="" alt="Error loading" />
       </div>
-      <div class="container">
-        <div class="slide"></div>
-        <div class="slide displayNone"></div>
-        <div class="slide displayNone"></div>
+      <div class="fadeInSlide hourlyWeather">
+        <div class="header">
+          <div>Hourly</div>
+          <div class="leftArrow material-symbols-rounded">
+            arrow_back_ios_new
+          </div>
+          <div class="dot selected"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="rightArrow material-symbols-rounded">
+            arrow_forward_ios
+          </div>
+        </div>
+        <div class="container">
+          <div class="slide"></div>
+          <div class="slide displayNone"></div>
+          <div class="slide displayNone"></div>
+        </div>
       </div>
     </div>
     <div class="footer">

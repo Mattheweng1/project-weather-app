@@ -1,34 +1,47 @@
-import { fetchData, filterForecastData } from "./api";
+import { fetchData, filterForecastData, getForecastUrlFromInput } from "./api";
 import { renderWeather } from "./renderWeather";
 import { currentSlide, plusSlide } from "./hourlySlides";
 import { changeUnits } from "./units";
+import {
+  displayContent,
+  hideError,
+  showEmptyInputError,
+  showSameInputError,
+} from "./animate";
 
 // Initial weather data
 // Also store current forecastUrl & weather data for reuse
 let forecastUrl =
   "https://api.weatherapi.com/v1/forecast.json?key=290bb3875a474307b09152332230911&q=Nowhere&days=3&aqi=no&alerts=no";
-let weatherPromise = fetchData(forecastUrl).then(filterForecastData);
+let weatherPromise = fetchData(forecastUrl)
+  .then(filterForecastData)
+  .catch(console.error);
 
 // Initial weather render
-weatherPromise.then(renderWeather);
+weatherPromise.then(renderWeather).then(displayContent).catch(console.error);
 weatherPromise.then(console.log);
 
 // onsubmit: Fetch & render weather data
 const locationSearchForm = document.getElementById("locationSearchForm");
+const searchInput = document.querySelector(".searchBar input");
+
 locationSearchForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  // Prevent fetching & rerendering the same data
-  if (forecastUrl !== getForecastUrl()) {
-    forecastUrl = getForecastUrl();
-    weatherPromise = fetchData(forecastUrl).then(filterForecastData);
-    weatherPromise.then(renderWeather);
+  hideError();
+  // Prevent fetching & rerendering the same or no data
+  if (!searchInput.value) {
+    showEmptyInputError();
+  } else if (forecastUrl === getForecastUrlFromInput()) {
+    showSameInputError();
+  } else {
+    forecastUrl = getForecastUrlFromInput();
+    weatherPromise = fetchData(forecastUrl)
+      .then(filterForecastData)
+      .catch(console.error);
+    weatherPromise.then(renderWeather).catch(console.error);
   }
+  locationSearchForm.reset();
 });
-
-function getForecastUrl() {
-  const searchInput = document.querySelector(".searchBar input");
-  return `https://api.weatherapi.com/v1/forecast.json?key=290bb3875a474307b09152332230911&q=${searchInput.value}&days=3&aqi=no&alerts=no`;
-}
 
 // onclick: Change hourlyWeather slide
 const leftArrow = document.querySelector(".leftArrow");

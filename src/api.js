@@ -1,12 +1,29 @@
+import { showNoMatchesError } from "./animate";
+
 async function fetchData(url) {
   const response = await fetch(url, {
     mode: "cors",
   });
+
+  if (response.status === 400) {
+    showNoMatchesError();
+    return;
+  }
+
   const data = await response.json();
   return data;
 }
 
+function getForecastUrlFromInput() {
+  const searchInput = document.querySelector(".searchBar input");
+  return `https://api.weatherapi.com/v1/forecast.json?key=290bb3875a474307b09152332230911&q=${searchInput.value}&days=3&aqi=no&alerts=no`;
+}
+
 function filterForecastData(forecastData) {
+  if (!forecastData) {
+    return;
+  }
+
   const weather = {};
 
   // Location
@@ -93,4 +110,4 @@ function getCurrentHour(forecastData) {
   return hour;
 }
 
-export { fetchData, filterForecastData };
+export { fetchData, filterForecastData, getForecastUrlFromInput };

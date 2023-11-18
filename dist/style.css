@@ -8,16 +8,20 @@
 }
 
 body {
-  min-height: 100vh;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  min-height: 100vh;
   background-color: black;
   background-image: url("./images/skyBackgroundFlipped.jpg");
   background-size: cover;
-  padding: 80px;
   font-family: sans-serif;
   color: white;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  padding: 80px;
 }
 
 .material-symbols-rounded {
@@ -45,7 +49,7 @@ body {
 #locationSearchForm {
   grid-column: 2/-1;
   display: grid;
-  gap: 24px;
+  column-gap: 24px;
   grid-template-columns: auto auto;
   justify-content: center;
   align-content: start;
@@ -95,6 +99,14 @@ input:focus {
   background: none;
   cursor: pointer;
   margin: 4px;
+}
+
+.errorMsg {
+  grid-column: 2/-1;
+  display: grid;
+  color: rgba(255, 0, 0, 0.7);
+  font-size: 75%;
+  padding: 8px;
 }
 
 .nextDayWeather,
@@ -171,4 +183,37 @@ input:focus {
   left: 8px;
   bottom: 8px;
   color: rgba(255, 255, 255, 0.25);
+}
+
+/* Animations */
+
+.fadeIn {
+  animation-name: fade-in;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.fadeInSlide {
+  animation-name: fade-in-slide;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-slide {
+  0% {
+    opacity: 0;
+    transform: translate(16px, -8px);
+  }
+  100% {
+    opacity: 1;
+  }
 }
