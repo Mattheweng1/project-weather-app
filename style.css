@@ -117,7 +117,7 @@ body {
 .changeUnits {
   display: grid;
   align-items: center;
-  grid-template-columns: repeat(3, auto);
+  grid-template-columns: 1fr auto 1fr;
   user-select: none;
 }
 
