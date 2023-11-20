@@ -147,9 +147,11 @@ function renderHourlyWeather(weather) {
 }
 
 function renderOneHourWeather(weather, slide, index) {
-  const timeDiv = document.createElement("div");
+  const hourTimeDiv = document.createElement("div");
+  hourTimeDiv.classList.add("hourTime");
   const tempDiv = document.createElement("div");
   tempDiv.classList.add("unitContainer");
+  tempDiv.classList.add("temp");
   const metricTempSpan = document.createElement("span");
   metricTempSpan.classList.add("metric");
   tempDiv.appendChild(metricTempSpan);
@@ -158,8 +160,9 @@ function renderOneHourWeather(weather, slide, index) {
   imperialTempSpan.classList.add("displayNone");
   tempDiv.appendChild(imperialTempSpan);
   const conditionIconImg = document.createElement("img");
+  conditionIconImg.classList.add("conditionIcon");
 
-  timeDiv.textContent = format(
+  hourTimeDiv.textContent = format(
     utcToZonedTime(
       fromUnixTime(weather.next24Hours[index].time_epoch),
       weather.location.tz_id
@@ -173,7 +176,7 @@ function renderOneHourWeather(weather, slide, index) {
   const hourWeatherDiv = document.createElement("div");
   hourWeatherDiv.classList.add("oneHourWeather");
 
-  hourWeatherDiv.appendChild(timeDiv);
+  hourWeatherDiv.appendChild(hourTimeDiv);
   hourWeatherDiv.appendChild(tempDiv);
   hourWeatherDiv.appendChild(conditionIconImg);
 

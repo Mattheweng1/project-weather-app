@@ -13,15 +13,17 @@ body {
   background-color: black;
   background-image: url("./images/skyBackgroundFlipped.jpg");
   background-size: cover;
-  font-family: sans-serif;
   color: white;
+  text-shadow: black 0 0 4px;
+  font-family: "Open Sans", sans-serif;
+  position: relative;
 }
 
 .content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  padding: 80px;
+  padding: 64px;
 }
 
 .material-symbols-rounded {
@@ -32,8 +34,11 @@ body {
   display: none !important;
 }
 
-.currentWeather {
-  grid-row: 1/3;
+.opacityZero {
+  opacity: 0 !important;
+}
+
+.currentWeather.main {
   display: grid;
 }
 
@@ -41,8 +46,53 @@ body {
   font-size: 2rem;
 }
 
+.currentWeather .locationName {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 .currentWeather .temp {
   font-size: 3rem;
+  font-weight: bold;
+}
+
+.currentWeather .conditionIcon {
+  margin: 0 2rem;
+}
+
+.currentWeather.details {
+  grid-row: 2/3;
+  display: grid;
+}
+
+.feelsLikeContainer,
+.humidityContainer,
+.chanceOfRainContainer,
+.windSpeedContainer {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  justify-content: start;
+  align-content: center;
+  align-items: center;
+  margin-top: 8px;
+  column-gap: 8px;
+}
+
+.feelsLikeContainer .icon,
+.humidityContainer .icon,
+.chanceOfRainContainer .icon,
+.windSpeedContainer .icon {
+  grid-row: 1/-1;
+  font-size: 2rem;
+  align-self: center;
+}
+
+.feelsLike,
+.humidity,
+.chanceOfRain,
+.windSpeed {
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
@@ -93,6 +143,10 @@ input:focus {
   outline: none;
 }
 
+.searchBar input {
+  width: 100%;
+}
+
 .searchBar > button {
   width: 3rem;
   aspect-ratio: 1/1;
@@ -113,6 +167,19 @@ input:focus {
   display: grid;
   justify-content: start;
   align-content: center;
+  justify-items: center;
+  text-align: center;
+  margin-left: 64px;
+}
+
+.nextDaysWeather .dayOfWeek {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+}
+
+.nextDaysWeather .tempHigh {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .hourlyWeather {
@@ -120,6 +187,7 @@ input:focus {
   display: grid;
   grid-template-rows: auto auto;
   align-content: end;
+  padding-top: 8px;
 }
 
 .hourlyWeather > .header {
@@ -129,6 +197,8 @@ input:focus {
   grid-template-columns: repeat(6, auto);
   justify-content: start;
   align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 .hourlyWeather > .header > div {
@@ -169,12 +239,21 @@ input:focus {
   grid-template-columns: repeat(8, 1fr);
 }
 
-.hourlyWeather .oneHourWeather {
+.oneHourWeather {
   display: grid;
   justify-content: center;
   align-content: center;
   text-align: center;
-  padding: 32px 0 0;
+  margin: 32px 0 0;
+}
+
+.oneHourWeather .hourTime {
+  margin-bottom: 8px;
+}
+
+.oneHourWeather .temp {
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .footer {
@@ -214,5 +293,171 @@ input:focus {
   }
   100% {
     opacity: 1;
+  }
+}
+
+/* Media Screen: Height and Landscape */
+
+@media only screen and (max-height: 950px) and (orientation: landscape) {
+  /* Copied form (max-width: 1000px) */
+  html {
+    font-size: 80%;
+  }
+}
+
+/* Media Screen: Width and Landscape */
+
+@media only screen and (max-width: 1000px) and (orientation: landscape) {
+  html {
+    font-size: 80%;
+  }
+  .content {
+    padding: 48px;
+  }
+}
+
+/* Media Screen: Width */
+
+@media only screen and (max-width: 850px) {
+  .content {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    padding: 32px;
+  }
+  #locationSearchForm {
+    grid-column: 1/-1;
+    grid-row: 1/2;
+  }
+  .currentWeather.main {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+  .currentWeather.details {
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
+  .nextDaysWeather {
+    grid-row: 2/4;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .content {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+  #locationSearchForm {
+    grid-template-columns: auto 1fr;
+  }
+  .nextDaysWeather {
+    grid-column: 2/-1;
+    grid-row: auto;
+    justify-content: center;
+    margin-left: 0;
+  }
+  .hourlyWeather .header {
+    justify-content: center;
+  }
+  .hourlyWeather .slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, 1fr);
+  }
+  .oneHourWeather {
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    margin: 16px 10% 0;
+    gap: 16px;
+  }
+  .oneHourWeather .hourTime {
+    justify-self: start;
+    font-size: 1.5rem;
+  }
+  .oneHourWeather .temp {
+    font-size: 1.8rem;
+  }
+}
+
+@media only screen and (max-width: 550px) {
+  .searchBar {
+    grid-column: 1/-1;
+  }
+  .errorMsg {
+    grid-column: 1/-1;
+  }
+  .oneHourWeather {
+    margin: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  html {
+    font-size: 60%;
+  }
+  .searchBar {
+    grid-column: 1/-1;
+  }
+  .errorMsg {
+    grid-column: 1/-1;
+  }
+  .oneHourWeather {
+    margin: 0 !important;
+  }
+}
+
+/* Media Screen: Portrait */
+
+@media only screen and (orientation: portrait) {
+  .content {
+    padding: 32px;
+  }
+  /* Copied from (max-width: 850px) */
+  #locationSearchForm {
+    grid-column: 1/-1;
+    grid-row: 1/2;
+  }
+  .currentWeather.main {
+    grid-column: 1/2;
+    grid-row: 2/3;
+  }
+  .currentWeather.details {
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
+  .nextDaysWeather {
+    grid-row: 2/4;
+  }
+  /* Copied from (max-width: 650) */
+  .content {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+  #locationSearchForm {
+    grid-template-columns: auto 1fr;
+  }
+  .nextDaysWeather {
+    grid-column: 2/-1;
+    grid-row: auto;
+    justify-content: center;
+    margin-left: 0;
+  }
+  .hourlyWeather .header {
+    justify-content: center;
+  }
+  .hourlyWeather .slide {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(8, 1fr);
+  }
+  .oneHourWeather {
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    margin: 16px 10% 0;
+    gap: 16px;
+  }
+  .oneHourWeather .hourTime {
+    justify-self: start;
+    font-size: 1.5rem;
+  }
+  .oneHourWeather .temp {
+    font-size: 1.8rem;
   }
 }

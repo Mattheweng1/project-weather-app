@@ -14,7 +14,7 @@ function animateFadeInSlide() {
 const error = document.querySelector(".errorMsg");
 
 function hideError() {
-  error.classList.add("displayNone");
+  error.classList.add("opacityZero");
 }
 
 function showNoMatchesError() {
@@ -33,7 +33,7 @@ function showSameInputError() {
 }
 
 function showError() {
-  error.classList.remove("displayNone");
+  error.classList.remove("opacityZero");
   animateFadeInError();
 }
 
