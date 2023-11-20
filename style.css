@@ -153,6 +153,7 @@ input:focus {
   background: none;
   cursor: pointer;
   margin: 4px;
+  border: none;
 }
 
 .errorMsg {
@@ -161,6 +162,10 @@ input:focus {
   color: rgba(255, 0, 0, 0.7);
   font-size: 75%;
   padding: 8px;
+
+  animation-name: fade-in-slide;
+  animation-duration: 1s;
+  animation-fill-mode: both;
 }
 
 .nextDaysWeather {
