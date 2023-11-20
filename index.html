@@ -8,12 +8,18 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
     <script defer src="main.js"></script>
     <title>Weather App</title>
   </head>
   <body>
     <div class="content displayNone">
-      <div class="fadeInSlide currentWeather">
+      <div class="fadeInSlide currentWeather main">
         <div class="conditionText">Cloudy with a chance of meatballs</div>
         <div class="locationName">Sapporo</div>
         <div>
@@ -25,23 +31,29 @@
           <span class="imperial displayNone">imperial</span>
         </div>
         <img class="conditionIcon" src="" alt="Error loading" />
-        <div>
-          <div>Feels Like</div>
+      </div>
+      <div class="fadeInSlide currentWeather details">
+        <div class="feelsLikeContainer">
+          <div class="icon material-symbols-rounded">device_thermostat</div>
+          <div class="detailName">Feels Like</div>
           <div class="unitContainer feelsLike">
             <span class="metric">metric</span>
             <span class="imperial displayNone">imperial</span>
           </div>
         </div>
-        <div>
-          <div>Humidity</div>
+        <div class="humidityContainer">
+          <div class="icon material-symbols-rounded">humidity_percentage</div>
+          <div class="detailName">Humidity</div>
           <div class="humidity">wet</div>
         </div>
-        <div>
-          <div>Chance of Rain</div>
+        <div class="chanceOfRainContainer">
+          <div class="icon material-symbols-rounded">rainy</div>
+          <div class="detailName">Chance of Rain</div>
           <div class="chanceOfRain">meatballs</div>
         </div>
-        <div>
-          <div>Wind Speed</div>
+        <div class="windSpeedContainer">
+          <div class="icon material-symbols-rounded">air</div>
+          <div class="detailName">Wind Speed</div>
           <div class="unitContainer windSpeed">
             <span class="metric">metric</span>
             <span class="imperial displayNone">imperial</span>
@@ -58,9 +70,7 @@
           <input type="text" placeholder="Search location..." />
           <button type="submit" class="material-symbols-rounded">search</button>
         </div>
-        <div class="fadeInSlide errorMsg displayNone">
-          No matching location found
-        </div>
+        <div class="fadeInSlide errorMsg opacityZero">Must enter an input</div>
       </form>
       <div class="fadeInSlide nextDaysWeather">
         <div class="dayOfWeek"></div>
